@@ -75,7 +75,22 @@ def align_hmm(path_specie):
         pfam = pfam.split('.')[0]
         hmm = pfam + '.hmm'
         input_hmm_path = os.path.join(path_hmm, hmm)
-        output_file_path = os.path.join(output_directory, f'{pfam}.aln')
-        command_line = (f'hmmalign -o {output_file_path} --outformat a2m {input_hmm_path} {input_pfam_path}')
+        output_file_path = os.path.join(output_directory, f'{pfam}.sto')
+        command_line = (f'hmmalign -o {output_file_path} {input_hmm_path} {input_pfam_path}')
         subprocess.run(command_line, shell=True)
+
+def search_hmm(path_specie, threads):
+    path_multifasta = os.path.join(path_specie, 'Pfam_multifasta')
+    path_hmm = os.path.join(path_specie, 'Pfam_hmm')
+    output_directory = os.path.join(path_specie, 'Pfam_hmm_search')
+    os.mkdir(output_directory)
+    for pfam in os.listdir(path_multifasta):
+        input_pfam_path = os.path.join(path_multifasta, pfam)
+        pfam = pfam.split('.')[0]
+        hmm = pfam + '.hmm'
+        input_hmm_path = os.path.join(path_hmm, hmm)
+        output_file_path = os.path.join(output_directory, f'{pfam}.tab')
+        command_line = (f'hmmsearch --noali --cpu {threads} --tblout {output_file_path} {input_hmm_path} {input_pfam_path}')
+        subprocess.run(command_line, shell=True)
+
 
