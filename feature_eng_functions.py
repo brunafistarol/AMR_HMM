@@ -49,7 +49,7 @@ def get_multifasta(datadir, output_directory):
 def multiple_alignment(input_directory, output_directory):
     os.mkdir(os.path.join(output_directory, 'Pfam_ma'))
     for protein_family in os.listdir(input_directory):
-        input_file_path = input_directory + f'{protein_family}'
+        input_file_path = os.path.join(input_directory, protein_family)
         output_file_path = os.path.join(output_directory, f'Pfam_ma/{protein_family}')
         mafft_cline = MafftCommandline(input=input_file_path)    # Perform alignment using MAFFT
         stdout, stderr = mafft_cline() 
