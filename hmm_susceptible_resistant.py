@@ -7,18 +7,22 @@ antibiotics = ['AMP', 'AUG', 'AXO', 'CHL', 'FIS', 'FOX', 'GEN', 'KAN', 'STR', 'T
 profile = ['Susceptible', 'Resistant']
 
 root = '/mnt/e/User/bruna.fistarol/HMM/Salmonella/Antibiotics'
+#path_multifasta = '/mnt/e/User/bruna.fistarol/HMM/Salmonella/Pfam_multifasta'
 
 for a in antibiotics:
-    for p in profile:
+    #for p in profile:
 
-        datadir = os.path.join(root, a, p, 'Strains')
+    #datadir = os.path.join(root, a, p, 'Strains')
 
-        output_directory = os.path.join(root, a, p)
+    susceptible_directory = os.path.join(root, a, 'Susceptible')
 
-        input_directory = os.path.join(root, a, p)
+    resistant_directory = os.path.join(root, a, 'Resistant')
 
-        #get_multifasta(datadir, output_directory)
+    get_multifasta(datadir, output_directory)
 
-        multiple_alignment(input_directory + '/Pfam_multifasta', output_directory)
+    multiple_alignment(input_directory + '/Pfam_multifasta', output_directory)
 
-        run_hmmbuild(input_directory + '/Pfam_ma', output_directory, 28)
+    run_hmmbuild(input_directory + '/Pfam_ma', output_directory, 28)
+
+    search_hmm(susceptible_directory, resistant_directory, 28)
+    search_hmm(resistant_directory, susceptible_directory, 28)

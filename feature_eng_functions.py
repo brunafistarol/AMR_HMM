@@ -79,10 +79,10 @@ def align_hmm(path_specie):
         command_line = (f'hmmalign -o {output_file_path} {input_hmm_path} {input_pfam_path}')
         subprocess.run(command_line, shell=True)
 
-def search_hmm(path_specie, threads):
-    path_multifasta = os.path.join(path_specie, 'Pfam_multifasta')
+def search_hmm(path_strains, path_specie, threads):
+    path_multifasta = os.path.join(path_strains, 'Pfam_multifasta')
     path_hmm = os.path.join(path_specie, 'Pfam_hmm')
-    output_directory = os.path.join(path_specie, 'Pfam_hmm_search')
+    output_directory = os.path.join(path_specie, 'Pfam_hmm_search_all')
     os.mkdir(output_directory)
     for pfam in os.listdir(path_multifasta):
         input_pfam_path = os.path.join(path_multifasta, pfam)
